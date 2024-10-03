@@ -1,0 +1,25 @@
+create table department
+(dept_id number(10) primary key,
+dept varchar2(10) not null
+);
+create employee with a forgien key of department id
+CREATE TABLE Employee_1
+    (EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Department_ID INT,
+    FOREIGN KEY (department_id) REFERENCES Department(dept_id)
+);
+ 
+Alter table department
+modify dept varchar2(20);
+
+INSERT ALL
+ INTO department (dept_id, dept) VALUES (1, 'sales') 
+ INTO department (dept_id, dept) VALUES (2, 'Engineering')
+ INTO DEPARTMENT (dept_id, dept) VALUES (3, 'hr')
+ INTO DEPARTMENT (dept_id, dept) VALUES (4, 'ACCOUNTS')
+ INTO DEPARTMENT (dept_id, dept) VALUES (5, 'research')
+ INTO DEPARTMENT (dept_id, dept) VALUES (6, 'marketing')
+select * from dual;
+

@@ -1,0 +1,445 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Sep 28 09:35:11 2024
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: aimlb068
+Enter password:
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> create table aids(sid number(10),sname char(20),address char(10));
+
+Table created.
+
+SQL> desc aids
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(10)
+ SNAME                                              CHAR(20)
+ ADDRESS                                            CHAR(10)
+
+SQL> alter table aids add(mobile number(10),gender char(6));
+
+Table altered.
+
+SQL> desc aids
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(10)
+ SNAME                                              CHAR(20)
+ ADDRESS                                            CHAR(10)
+ MOBILE                                             NUMBER(10)
+ GENDER                                             CHAR(6)
+
+SQL> insert into table aids values(1,'hasnain','hyd',87687688,'male');
+SP2-0734: unknown command beginning "inser into..." - rest of line ignored.
+SQL> inser into aids values(1,'hasnain','hyd',87687688,'male');
+SP2-0734: unknown command beginning "inser into..." - rest of line ignored.
+SQL> insert into aids values(1,'hasnain','hyd',87687688,'male');
+
+1 row created.
+
+SQL> select * from aiml
+  2
+SQL> ;
+  1* select * from aiml
+SQL> select*from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER
+---------- -------------------- ---------- ---------- ------
+         1 hasnain              hyd          87687688 male
+
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,&gender)
+  2  ;
+Enter value for sid: 2
+Enter value for sname: arsalaan
+Enter value for address: hyd
+Enter value for mobile: 678789
+Enter value for gender: male
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,&gender)
+new   1: insert into aiml values(2,'arsalaan','hyd',678789,male)
+insert into aiml values(2,'arsalaan','hyd',678789,male)
+                                                  *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> select * from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER
+---------- -------------------- ---------- ---------- ------
+         1 hasnain              hyd          87687688 male
+
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,'&gender');
+Enter value for sid: 2
+Enter value for sname: arsalaan
+Enter value for address: hyd
+Enter value for mobile: 674327
+Enter value for gender: male
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,'&gender')
+new   1: insert into aiml values(2,'arsalaan','hyd',674327,'male')
+
+1 row created.
+
+SQL> select * from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER
+---------- -------------------- ---------- ---------- ------
+         1 hasnain              hyd          87687688 male
+         2 arsalaan             hyd            674327 male
+
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,'&gender');
+Enter value for sid: 3
+Enter value for sname: saqib
+Enter value for address: hyd
+Enter value for mobile: 64563
+Enter value for gender: male
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,'&gender')
+new   1: insert into aiml values(3,'saqib','hyd',64563,'male')
+
+1 row created.
+
+SQL> alter table aids add(sec char(5));
+
+Table altered.
+
+SQL> select * from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER SEC
+---------- -------------------- ---------- ---------- ------ -----
+         1 hasnain              hyd          87687688 male
+         2 arsalaan             hyd            674327 male
+         3 saqib                hyd             64563 male
+
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,'&gender','&sec');
+Enter value for sid: 4
+Enter value for sname: mohammed
+Enter value for address: hyd
+Enter value for mobile: 799898
+Enter value for gender: male
+Enter value for sec: b
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,'&gender','&sec')
+new   1: insert into aiml values(4,'mohammed','hyd',799898,'male','b')
+
+1 row created.
+
+SQL> update aiml set sec=b;
+update aiml set sec=b
+                    *
+ERROR at line 1:
+ORA-00904: "B": invalid identifier
+
+
+SQL> update aids set sec = 'b';
+
+4 rows updated.
+
+SQL> select * from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER SEC
+---------- -------------------- ---------- ---------- ------ -----
+         1 hasnain              hyd          87687688 male   b
+         2 arsalaan             hyd            674327 male   b
+         3 saqib                hyd             64563 male   b
+         4 mohammed             hyd            799898 male   b
+
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,'&gender','&sec');
+Enter value for sid: 5
+Enter value for sname: asad
+Enter value for address: hyd
+Enter value for mobile: 45444
+Enter value for gender: dk
+Enter value for sec: b
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,'&gender','&sec')
+new   1: insert into aiml values(5,'asad','hyd',45444,'dk','b')
+
+1 row created.
+
+SQL> select * from aiml;
+
+       SID SNAME                ADDRESS        MOBILE GENDER SEC
+---------- -------------------- ---------- ---------- ------ -----
+         1 hasnain              hyd          87687688 male   b
+         2 arsalaan             hyd            674327 male   b
+         3 saqib                hyd             64563 male   b
+         4 mohammed             hyd            799898 male   b
+         5 asad                 hyd             45444 dk     b
+
+SQL> update aiml set gender='male' where sid=5;
+
+1 row updated.
+
+SQL> select * from aiml
+  2  ;
+
+       SID SNAME                ADDRESS        MOBILE GENDER SEC
+---------- -------------------- ---------- ---------- ------ -----
+         1 hasnain              hyd          87687688 male   b
+         2 arsalaan             hyd            674327 male   b
+         3 saqib                hyd             64563 male   b
+         4 mohammed             hyd            799898 male   b
+         5 asad                 hyd             45444 male   b
+
+SQL> create table employee(eid number(100),ename char(20),address char(10),salary number(7));
+create table employee(eid number(100),ename char(20),address char(10),salary number(7))
+                                 *
+ERROR at line 1:
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+
+SQL> create table employee(eid number(10),ename char(20),address char(10),salary number(7));
+
+Table created.
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(10)
+ ENAME                                              CHAR(20)
+ ADDRESS                                            CHAR(10)
+ SALARY                                             NUMBER(7)
+
+SQL> insert into employee(&eid,'&ename','&address','&salary');
+Enter value for eid: 123
+Enter value for ename: saad
+Enter value for address: wrngle
+Enter value for salary: 40000
+old   1: insert into employee(&eid,'&ename','&address','&salary')
+new   1: insert into employee(123,'saad','wrngle','40000')
+insert into employee(123,'saad','wrngle','40000')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: 123
+Enter value for ename: saad
+Enter value for address: warangle
+Enter value for salary: 40000
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(123,'saad','warangle','40000')
+
+1 row created.
+
+SQL> select * from employee
+  2  ;
+
+       EID ENAME                ADDRESS        SALARY
+---------- -------------------- ---------- ----------
+       123 saad                 warangle        40000
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: 234
+Enter value for ename: shafat
+Enter value for address: saidabad
+Enter value for salary: 35000
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(234,'shafat','saidabad','35000')
+
+1 row created.
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: 456
+Enter value for ename: abdullah
+Enter value for address: nizambad
+Enter value for salary: 32000
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(456,'abdullah','nizambad','32000')
+
+1 row created.
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: 476
+Enter value for ename: asad
+Enter value for address: vikarabad
+Enter value for salary: 45000
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(476,'asad','vikarabad','45000')
+
+1 row created.
+
+SQL> select * from employee
+  2  ;
+
+       EID ENAME                ADDRESS        SALARY
+---------- -------------------- ---------- ----------
+       123 saad                 warangle        40000
+       234 shafat               saidabad        35000
+       456 abdullah             nizambad        32000
+       476 asad                 vikarabad       45000
+
+SQL> alter table employee add(gender char(10));
+
+Table altered.
+
+SQL> update emplpoyee set gender='male';
+update emplpoyee set gender='male'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from employee;
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+       123 saad                 warangle        40000
+       234 shafat               saidabad        35000
+       456 abdullah             nizambad        32000
+       476 asad                 vikarabad       45000
+
+SQL> update employee set gender='male';
+
+4 rows updated.
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: shravari
+Enter value for ename: shravari
+Enter value for address:
+Enter value for salary:
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(shravari,'shravari','','')
+insert into employee values(shravari,'shravari','','')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL>
+SQL> insert into employee values(&eid,'&ename','&address','&salary');
+Enter value for eid: 566
+Enter value for ename: sharavari
+Enter value for address: gao
+Enter value for salary: 15000
+old   1: insert into employee values(&eid,'&ename','&address','&salary')
+new   1: insert into employee values(566,'sharavari','gao','15000')
+insert into employee values(566,'sharavari','gao','15000')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into employee values(&eid,'&ename','&address','&salary','&gender');
+Enter value for eid: 455
+Enter value for ename: shravari
+Enter value for address: gao
+Enter value for salary: 15000
+Enter value for gender: male
+old   1: insert into employee values(&eid,'&ename','&address','&salary','&gender')
+new   1: insert into employee values(455,'shravari','gao','15000','male')
+
+1 row created.
+
+SQL> select * from employee;
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+       123 saad                 warangle        40000 male
+       234 shafat               saidabad        35000 male
+       456 abdullah             nizambad        32000 male
+       476 asad                 vikarabad       45000 male
+       455 shravari             gao             15000 male
+
+SQL> update employee set gender='female' where eid=455;
+
+1 row updated.
+
+SQL> select * from employee
+  2  ;
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+       123 saad                 warangle        40000 male
+       234 shafat               saidabad        35000 male
+       456 abdullah             nizambad        32000 male
+       476 asad                 vikarabad       45000 male
+       455 shravari             gao             15000 female
+
+SQL> alter table employee add(state char(20));
+
+Table altered.
+
+SQL> select * from employee;
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+STATE
+--------------------
+       123 saad                 warangle        40000 male
+
+
+       234 shafat               saidabad        35000 male
+
+
+       456 abdullah             nizambad        32000 male
+
+
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+STATE
+--------------------
+       476 asad                 vikarabad       45000 male
+
+
+       455 shravari             gao             15000 female
+
+
+
+SQL> update employee set state='telengana';
+
+5 rows updated.
+
+SQL> select*from employee;
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+STATE
+--------------------
+       123 saad                 warangle        40000 male
+telengana
+
+       234 shafat               saidabad        35000 male
+telengana
+
+       456 abdullah             nizambad        32000 male
+telengana
+
+
+       EID ENAME                ADDRESS        SALARY GENDER
+---------- -------------------- ---------- ---------- ----------
+STATE
+--------------------
+       476 asad                 vikarabad       45000 male
+telengana
+
+       455 shravari             gao             15000 female
+telengana
+
+
+SQL> delete from employee state='telengana';
+delete from employee state='telengana'
+                          *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> delete from employee  where state='telengana';
+
+5 rows deleted.
+
+SQL> select * from employee
+  2  ;
+
+no rows selected
+
+SQL>
+CREATE TABLE department_new (
+    department_id NUMBER PRIMARY KEY,
+    department_name VARCHAR2(100) NOT NULL,
+        REFERENCES employees(employee_id)
+);
