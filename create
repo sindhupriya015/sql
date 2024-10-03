@@ -3,3 +3,12 @@ CREATE TABLE employee_NEW
   employee_name varchar2(50) NOT NULL,
   city varchar2(50)
 );
+SQL> insert into aiml values(&sid,'&sname','&address',&mobile,'&gender');
+Enter value for sid: 3
+Enter value for sname: saqib
+Enter value for address: hyd
+Enter value for mobile: 64563
+Enter value for gender: male
+old   1: insert into aiml values(&sid,'&sname','&address',&mobile,'&gender')
+new   1: insert into aiml values(3,'saqib','hyd',64563,'male')
+
