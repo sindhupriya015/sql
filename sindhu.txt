@@ -1,0 +1,65 @@
+
+CREATE TABLE employee_11 (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(15),
+    dept_id INT,
+    salary DECIMAL(10, 2),
+    join_date DATE
+);
+CREATE TABLE department_22 (
+    dept_id INT PRIMARY KEY,          -- Primary key for the department
+    dept_name VARCHAR(100) NOT NULL   -- Department name (can be modified according to length or requirements)
+);
+CREATE TABLE projects (
+    proj_id INT PRIMARY KEY,        -- Integer type for project ID, set as the primary key
+    pro_name VARCHAR(20),          -- Variable character type for project name, with a maximum length of 255 charac
+    budget DECIMAL(15, 2)           -- Decimal type for the budget, with a total of 15 digits and 2 decimal places
+);
+CREATE TABLE employee_projects (
+    emp_id INT,                        -- Employee ID (foreign key)
+    pro_id INT,                        -- Project ID (foreign key)
+    assigned_date DATE,                -- Date the employee was assigned to the project
+    role VARCHAR(20),                 -- Role of the employee in the project
+    PRIMARY KEY (emp_id, pro_id),      -- Composite primary key (unique combination of employee and project)
+    FOREIGN KEY (emp_id) REFERENCES employee_11(emp_id),  -- Reference to the 'employee_11' table 
+    FOREIGN KEY (pro_id) REFERENCES projects(proj_id)   -- Reference to the 'projects' table 
+);
+INSERT ALL
+ INTO department_22 (dept_name) VALUES ('IT')
+ INTO department_22 (dept_name) VALUES ('HR')
+ INTO department_22 (dept_name) VALUES ('FINANCE')
+INTO department_22 (dept_name) VALUES ('MARKETING')
+SELECT * FROM DUAL;
+
+INSERT ALL
+   INTO projects (proj_id, pro_name, budget) VALUES (1, 'website', 1000)
+   INTO projects (proj_id, pro_name, budget) VALUES (2, 'mobile app', 2000)
+   INTO projects (proj_id, pro_name, budget) VALUES (3, 'data migration', 1500)
+   INTO projects (proj_id, pro_name, budget) VALUES (4, 'AI',2000)
+   INTO projects (proj_id, pro_name, budget) VALUES (5,'marketing',3000)
+SELECT * FROM DUAL;
+
+INSERT INTO employee_projects (emp_id, pro_id, assigned_date, role)
+VALUES (1, 1, TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'Developer');
+
+INSERT INTO employee_projects (emp_id, pro_id, assigned_date, role)
+VALUES (2, 2, TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'Manager');
+
+INSERT INTO employee_projects (emp_id, pro_id, assigned_date, role)
+VALUES (3, 3, TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'Tester');
+
+INSERT INTO employee_projects (emp_id, pro_id, assigned_date, role)
+VALUES (4, 4, TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'AI Specialist');
+
+INSERT INTO employee_projects (emp_id, pro_id, assigned_date, role)
+VALUES (5, 5, TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'Marketing Lead');
+INSERT INTO employee_11 (emp_id, emp_name)
+VALUES (5, 'David Blue');
+
+INSERT INTO projects (proj_id, pro_name, budget)
+VALUES (5, 'Marketing', 5000);
+
+
+
+QUERY:GET ALL EMPLOYEE NAME AND THEIR JOIN DATES
+SQL: SELECT EMP_NAME AND JOIN DATE FROM EMPLOYEE_11;
