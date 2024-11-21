@@ -1,0 +1,8 @@
+ create table product(
+product_ID int primary key,
+product_name varchar (15) not null,
+price decimal (10,2) not null,
+category varchar(20) not null
+);
+
+insert into product(pro_ID,pro_name,price decimal,category)values(
